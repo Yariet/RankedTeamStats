@@ -1,0 +1,78 @@
+﻿<Window x:Class="WpfApplication1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:forms="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
+        xmlns:wpfApplication1="clr-namespace:WpfApplication1"
+
+        Title="Aspect eSports Blue" SizeToContent="WidthAndHeight" Icon="favicon.ico" >
+    <Window.Resources>
+        <Style x:Key="headerStyle" TargetType="DataGridColumnHeader">
+            <Setter Property="HorizontalContentAlignment" Value="Right" />
+        </Style>
+        <wpfApplication1:MyConverter x:Key="myConverter"/>
+    </Window.Resources>
+    <Grid Name="dataGrid1">
+        <DataGrid Name="GamesHistoryGrid" ItemsSource="{Binding}" AutoGenerateColumns="False"
+                  CanUserReorderColumns="False" CanUserResizeColumns="False" 
+                  CanUserResizeRows="False" CanUserSortColumns="True" VerticalScrollBarVisibility="Visible"
+                  AlternatingRowBackground="Gainsboro"  AlternationCount="2" ClipboardCopyMode="IncludeHeader">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding GameDate}" Header="Game Date"/>
+                <DataGridTextColumn Binding="{Binding Result}" Header="Result"/>
+                <DataGridTextColumn Binding="{Binding Player}" Header="Player"/>
+                <DataGridTextColumn Binding="{Binding Champion}" Header="Champion"/>
+                <DataGridTextColumn Binding="{Binding Kills}" Header="Kills"/>
+                <DataGridTextColumn Binding="{Binding Deaths}" Header="Deaths"/>
+                <DataGridTextColumn Binding="{Binding Assists}" Header="Assists"/>
+                <DataGridTextColumn Binding="{Binding CS}" Header="CS"/>
+                <DataGridTextColumn Binding="{Binding Gold}" Header="Gold"/>
+                <DataGridTextColumn Binding="{Binding Wards}" Header="Wards"/>
+                <DataGridTextColumn Binding="{Binding Pinks}" Header="Pinks"/>
+                <DataGridTextColumn Binding="{Binding DamageOutput}" Header="Damage Output"/>
+                <DataGridTextColumn Binding="{Binding FirstBlood}" Header="First Blood"/>
+            </DataGrid.Columns>
+            <DataGrid.GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.HeaderTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding Path=Player}" FontWeight="Bold" Padding="3"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </GroupStyle.HeaderTemplate>
+                    <GroupStyle.ContainerStyle>
+                        <Style TargetType="{x:Type GroupItem}">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type GroupItem}">
+                                        <Expander IsExpanded="True">
+                                            <Expander.Header>
+                                                <!-- <TextBlock Text="{Binding Player}"/> -->
+                                                <StackPanel Name="ghsp" Orientation="Horizontal" VerticalAlignment="Center">
+                                                    <DataGridCell  Content="" Width="100" FontWeight="Bold"/>
+                                                    <DataGridCell  Content="" Width="100" FontWeight="Bold" />
+                                                    <DataGridCell  Content="{Binding Player}" Width="100" FontWeight="Bold" />
+                                                    <DataGridCell  Content="" Width="100" FontWeight="Bold" />
+                                                    <DataGridCell HorizontalContentAlignment="Right" Content="{Binding Converter={StaticResource myConverter}, ConverterParameter=Kills}" Width="100" FontWeight="Bold"/>
+                                                    <DataGridCell HorizontalContentAlignment="Right" Content="{Binding Converter={StaticResource myConverter}, ConverterParameter=Deaths}" Width="100" FontWeight="Bold"/>
+                                                    <DataGridCell HorizontalContentAlignment="Right" Content="{Binding Converter={StaticResource myConverter}, ConverterParameter=Assists}" Width="100" FontWeight="Bold"/>
+                                                    <DataGridCell  Content="" Width="100" FontWeight="Bold" />
+                                                    <DataGridCell  Content="" Width="100" FontWeight="Bold" />
+                                                    <DataGridCell HorizontalContentAlignment="Right" Content="{Binding Converter={StaticResource myConverter}, ConverterParameter=Wards}" Width="100" FontWeight="Bold"/>
+                                                    <DataGridCell HorizontalContentAlignment="Right" Content="{Binding Converter={StaticResource myConverter}, ConverterParameter=Pinks}" Width="100" FontWeight="Bold"/>
+                                                    <DataGridCell HorizontalContentAlignment="Right" Content="{Binding Converter={StaticResource myConverter}, ConverterParameter=DamageOutput}" Width="100" FontWeight="Bold"/>
+                                                    <DataGridCell  Content="" Width="100" FontWeight="Bold" />
+                                                </StackPanel>
+                                            </Expander.Header>
+                                            <ItemsPresenter />
+                                        </Expander>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </GroupStyle.ContainerStyle>
+                </GroupStyle>
+            </DataGrid.GroupStyle>
+        </DataGrid>
+    </Grid>
+</Window>
