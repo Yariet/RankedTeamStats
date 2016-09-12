@@ -46,6 +46,7 @@
                 <DataGridTextColumn Binding="{Binding DrakesGiven}" Header="Drakes Given" MinWidth="35"/>
                 <DataGridTextColumn Binding="{Binding FirstBaron}" Header="First Baron" MinWidth="35"/>
                 <DataGridTextColumn Binding="{Binding Barons}" Header="Barons" MinWidth="35"/>
+                <DataGridTextColumn Binding="{Binding BaronsGiven}" Header="Barons Given" MinWidth="35"/>
                 <DataGridTextColumn Binding="{Binding FirstTurret}" Header="First Tower" MinWidth="35"/>
                 <DataGridTextColumn Binding="{Binding TeamGoldDiff10}" Header="Gold Diff@10" MinWidth="35"/>
                 <DataGridTextColumn Binding="{Binding TeamGoldDiff20}" Header="Gold Diff@20" MinWidth="35"/>
