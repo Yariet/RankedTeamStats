@@ -67,11 +67,6 @@ namespace WpfApplication1
 
             GamesHistoryGrid.DataContext = matchesView;
 
-            for (int i = 0; i < GamesHistoryGrid.Columns.Count; i++)
-            {
-                GamesHistoryGrid.Columns[i].Width = 100;
-            }
-
         }
         #endregion
 
@@ -83,11 +78,11 @@ namespace WpfApplication1
             var matchList = api.GetMatchList(region, summonerId, null, queue, season, beginDate, DateTime.Now);
             for (int i = 0; i < matchList.Matches.Count; i++)
             {
-                matchesDetails.Add(api.GetMatch(region, matchList.Matches[i].MatchID));
+                matchesDetails.Add(api.GetMatch(region, matchList.Matches[i].MatchID, true));
                 Thread.Sleep(1000);
                 while (matchesDetails.Last().Teams == null)
                 {
-                    matchesDetails[matchesDetails.IndexOf(matchesDetails.Last())] = api.GetMatch(region, matchList.Matches[i].MatchID);
+                    matchesDetails[matchesDetails.IndexOf(matchesDetails.Last())] = api.GetMatch(region, matchList.Matches[i].MatchID, true);
                     Thread.Sleep(1000);
                 }
 
@@ -113,6 +108,7 @@ namespace WpfApplication1
                         match.ParticipantIdentities[z].ParticipantId == player.ParticipantId)
                         {
                             singleMatch = new AllMatches();
+                            int team = 0;
                             
                             //Match Date
                             singleMatch.GameDate = match.MatchCreation.ToShortDateString();
@@ -124,6 +120,7 @@ namespace WpfApplication1
                                 else singleMatch.Result = "Defeat";
                             else
                             {
+                                team = 1;
                                 if (match.Teams[1].Winner)
                                     singleMatch.Result = "Victory";
                                 else singleMatch.Result = "Defeat";
@@ -158,8 +155,53 @@ namespace WpfApplication1
                             //CS
                             singleMatch.CS = player.Stats.MinionsKilled;
 
+                            //CS@10
+                            singleMatch.CS10 = player.Timeline.CreepsPerMinDeltas.ZeroToTen;
+
+                            //CS@20
+                            singleMatch.CS20 = player.Timeline.CreepsPerMinDeltas.TenToTwenty;
+
+                            //CS@30
+                            singleMatch.CS30 = player.Timeline.CreepsPerMinDeltas.TwentyToThirty;
+
+                            //CSDiff@10
+                            singleMatch.CSDiff10 = player.Timeline.CsDiffPerMinDeltas.ZeroToTen;
+
+                            //CSDiff@20
+                            singleMatch.CSDiff20 = player.Timeline.CsDiffPerMinDeltas.TenToTwenty;
+
+                            //CSDiff@30
+                            singleMatch.CSDiff30 = player.Timeline.CsDiffPerMinDeltas.TwentyToThirty;
+
+                            //CSDiff@END
+                            singleMatch.CSDiffEnd = player.Timeline.CsDiffPerMinDeltas.ThirtyToEnd;
+
                             //Wards
                             singleMatch.Wards = player.Stats.WardsPlaced;
+
+                            //Wards@10
+                            try
+                            {
+                                singleMatch.Wards10 = player.Timeline.WardsPerMinDeltas.ZeroToTen;
+                            }
+                            catch
+                            { }
+
+                            //Wards@20
+                            try
+                            {
+                                singleMatch.Wards10 = player.Timeline.WardsPerMinDeltas.TenToTwenty;
+                            }
+                            catch
+                            { }
+
+                            //Wards@30
+                            try
+                            {
+                                singleMatch.Wards10 = player.Timeline.WardsPerMinDeltas.TwentyToThirty;
+                            }
+                            catch
+                            { }
 
                             //Pinks
                             singleMatch.Pinks = player.Stats.VisionWardsBoughtInGame;
@@ -170,6 +212,74 @@ namespace WpfApplication1
                             //First Blood
                             singleMatch.FirstBlood = player.Stats.FirstBloodKill;
 
+
+                            //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@   TEAM STATS   @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+                            //First Dragon
+                            singleMatch.FirstDrake = match.Teams[team].FirstDragon;
+
+                            //First Baron
+                            singleMatch.FirstBaron = match.Teams[team].FirstBaron;
+
+                            //First Turret
+                            singleMatch.FirstTurret = match.Teams[team].FirstTower;
+
+                            //Drakes killed
+                            singleMatch.Drakes = match.Teams[team].DragonKills;
+
+                            //Drakes Given
+                            singleMatch.DrakesGiven = team == 1 ? match.Teams[team - 1].DragonKills : match.Teams[team + 1].DragonKills;
+
+                            //Barons killed
+                            singleMatch.Barons = match.Teams[team].BaronKills;
+
+                            //Barons Given
+                            singleMatch.BaronsGiven = team == 1 ? match.Teams[team - 1].BaronKills : match.Teams[team + 1].BaronKills;
+
+                            //Team GoldDiff@10
+                            double teamGold= 0;
+                            foreach (var goldPlayer in match.Participants)
+                            {
+                                if(goldPlayer.TeamId == match.Teams[team].TeamId)
+                                    teamGold += goldPlayer.Timeline.GoldPerMinDeltas.ZeroToTen;
+                                else
+                                    teamGold -= goldPlayer.Timeline.GoldPerMinDeltas.ZeroToTen;
+                            }
+                            singleMatch.TeamGoldDiff10 = teamGold;
+
+                            //Team GoldDiff@20
+                            teamGold = 0;
+                            foreach (var goldPlayer in match.Participants)
+                            {
+                                if (goldPlayer.TeamId == match.Teams[team].TeamId)
+                                    teamGold += goldPlayer.Timeline.GoldPerMinDeltas.TenToTwenty;
+                                else
+                                    teamGold -= goldPlayer.Timeline.GoldPerMinDeltas.TenToTwenty;
+                            }
+                            singleMatch.TeamGoldDiff20 = teamGold;
+
+                            //Team GoldDiff@30
+                            teamGold = 0;
+                            foreach (var goldPlayer in match.Participants)
+                            {
+                                if (goldPlayer.TeamId == match.Teams[team].TeamId)
+                                    teamGold += goldPlayer.Timeline.GoldPerMinDeltas.TwentyToThirty;
+                                else
+                                    teamGold -= goldPlayer.Timeline.GoldPerMinDeltas.TwentyToThirty;
+                            }
+                            singleMatch.TeamGoldDiff30 = teamGold;
+
+                            //Team GoldDiff@End
+                            teamGold = 0;
+                            foreach (var goldPlayer in match.Participants)
+                            {
+                                if (goldPlayer.TeamId == match.Teams[team].TeamId)
+                                    teamGold += goldPlayer.Timeline.GoldPerMinDeltas.ThirtyToEnd;
+                                else                                                 
+                                    teamGold -= goldPlayer.Timeline.GoldPerMinDeltas.ThirtyToEnd;
+                            }
+                            singleMatch.TeamGoldDiffEnd = teamGold;
+
                             Matches.Add(singleMatch);
                             break;
                         }
@@ -179,121 +289,6 @@ namespace WpfApplication1
         }
 
         #endregion
-
-        /*public void PrintMatesDatas()
-        {
-            int k = 1;
-            int j = 0;
-            foreach (MatchDetail match in matchesDetails)
-            {
-                foreach (Participant player in match.Participants)
-                {
-                    for (int z = 0; z < match.ParticipantIdentities.Count; z++)
-                    {
-                        if ((match.ParticipantIdentities[z].Player.SummonerId == summonerId ||
-                        match.ParticipantIdentities[z].Player.SummonerId == long.Parse(ConfigurationManager.AppSettings["Summoner2Id"]) ||
-                        match.ParticipantIdentities[z].Player.SummonerId == long.Parse(ConfigurationManager.AppSettings["Summoner3Id"]) ||
-                        match.ParticipantIdentities[z].Player.SummonerId == long.Parse(ConfigurationManager.AppSettings["Summoner4Id"]))
-                            &&
-                        match.ParticipantIdentities[z].ParticipantId == player.ParticipantId)
-                        {
-                            int i = 0;
-                            GamesHistoryGrid.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
-
-                            //Match Date
-                            label.Add(new Label() { BorderBrush = Brushes.Black, BorderThickness = new Thickness(1) });
-                            label[j].Content = match.MatchCreation;
-                            Grid.SetRow(label[j], k);
-                            Grid.SetColumn(label[j], i++);
-                            GamesHistoryGrid.Children.Add(label[j++]);
-
-                            //Result
-                            label.Add(new Label() { BorderBrush = Brushes.Black, BorderThickness = new Thickness(1) });
-                            if (player.TeamId == match.Teams[0].TeamId)
-                                if (match.Teams[0].Winner)
-                                    label[j].Content = "Victory";
-                                else label[j].Content = "Defeat";
-                            else
-                            {
-                                if (match.Teams[1].Winner)
-                                    label[j].Content = "Victory";
-                                else label[j].Content = "Defeat";
-                            }
-                            Grid.SetRow(label[j], k);
-                            Grid.SetColumn(label[j], i++);
-                            GamesHistoryGrid.Children.Add(label[j++]);
-
-                            //Player
-                            label.Add(new Label() { BorderBrush = Brushes.Black, BorderThickness = new Thickness(1) });
-                            foreach (ParticipantIdentity singleParticipantIdentity in match.ParticipantIdentities)
-                            {
-                                if (singleParticipantIdentity.ParticipantId == player.ParticipantId)
-                                {
-                                    label[j].Content = singleParticipantIdentity.Player.SummonerName;
-                                    break;
-                                }
-                            }
-                            Grid.SetRow(label[j], k);
-                            Grid.SetColumn(label[j], i++);
-                            GamesHistoryGrid.Children.Add(label[j++]);
-
-                            //Champion
-                            label.Add(new Label() { BorderBrush = Brushes.Black, BorderThickness = new Thickness(1) });
-                            label[j].Content = staticApi.GetChampion(region, player.ChampionId).Name;
-                            Thread.Sleep(1000);
-                            Grid.SetRow(label[j], k);
-                            Grid.SetColumn(label[j], i++);
-                            GamesHistoryGrid.Children.Add(label[j++]);
-
-                            //Kills
-                            label.Add(new Label() { BorderBrush = Brushes.Black, BorderThickness = new Thickness(1) });
-                            label[j].Content = player.Stats.Kills;
-                            Grid.SetRow(label[j], k);
-                            Grid.SetColumn(label[j], i++);
-                            GamesHistoryGrid.Children.Add(label[j++]);
-
-                            //Deaths
-                            label.Add(new Label() { BorderBrush = Brushes.Black, BorderThickness = new Thickness(1) });
-                            label[j].Content = player.Stats.Deaths;
-                            Grid.SetRow(label[j], k);
-                            Grid.SetColumn(label[j], i++);
-                            GamesHistoryGrid.Children.Add(label[j++]);
-
-                            //Assists
-                            label.Add(new Label() { BorderBrush = Brushes.Black, BorderThickness = new Thickness(1) });
-                            label[j].Content = player.Stats.Assists;
-                            Grid.SetRow(label[j], k);
-                            Grid.SetColumn(label[j], i++);
-                            GamesHistoryGrid.Children.Add(label[j++]);
-
-                            //Wards
-                            label.Add(new Label() { BorderBrush = Brushes.Black, BorderThickness = new Thickness(1) });
-                            label[j].Content = player.Stats.WardsPlaced;
-                            Grid.SetRow(label[j], k);
-                            Grid.SetColumn(label[j], i++);
-                            GamesHistoryGrid.Children.Add(label[j++]);
-
-                            //Pinks
-                            label.Add(new Label() { BorderBrush = Brushes.Black, BorderThickness = new Thickness(1) });
-                            label[j].Content = player.Stats.VisionWardsBoughtInGame;
-                            Grid.SetRow(label[j], k);
-                            Grid.SetColumn(label[j], i++);
-                            GamesHistoryGrid.Children.Add(label[j++]);
-
-                            //Damage Output
-                            label.Add(new Label() { BorderBrush = Brushes.Black, BorderThickness = new Thickness(1) });
-                            label[j].Content = player.Stats.TotalDamageDealtToChampions;
-                            Grid.SetRow(label[j], k);
-                            Grid.SetColumn(label[j], i++);
-                            GamesHistoryGrid.Children.Add(label[j++]);
-
-                            k++;
-                            break;
-                        }
-                    }
-                }
-            }
-        }*/
 
         #endregion
 

@@ -4,7 +4,7 @@
         xmlns:forms="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
         xmlns:wpfApplication1="clr-namespace:WpfApplication1"
 
-        Title="Aspect eSports Blue" SizeToContent="WidthAndHeight" Icon="favicon.ico" >
+        Title="Aspect eSports Blue" SizeToContent="WidthAndHeight" Icon="favicon.ico" MaxHeight="768px" MaxWidth="1280px">
     <Window.Resources>
         <Style x:Key="headerStyle" TargetType="DataGridColumnHeader">
             <Setter Property="HorizontalContentAlignment" Value="Right" />
@@ -17,19 +17,40 @@
                   CanUserResizeRows="False" CanUserSortColumns="True" VerticalScrollBarVisibility="Visible"
                   AlternatingRowBackground="Gainsboro"  AlternationCount="2" ClipboardCopyMode="IncludeHeader">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding GameDate}" Header="Game Date"/>
-                <DataGridTextColumn Binding="{Binding Result}" Header="Result"/>
-                <DataGridTextColumn Binding="{Binding Player}" Header="Player"/>
-                <DataGridTextColumn Binding="{Binding Champion}" Header="Champion"/>
-                <DataGridTextColumn Binding="{Binding Kills}" Header="Kills"/>
-                <DataGridTextColumn Binding="{Binding Deaths}" Header="Deaths"/>
-                <DataGridTextColumn Binding="{Binding Assists}" Header="Assists"/>
-                <DataGridTextColumn Binding="{Binding CS}" Header="CS"/>
-                <DataGridTextColumn Binding="{Binding Gold}" Header="Gold"/>
-                <DataGridTextColumn Binding="{Binding Wards}" Header="Wards"/>
-                <DataGridTextColumn Binding="{Binding Pinks}" Header="Pinks"/>
-                <DataGridTextColumn Binding="{Binding DamageOutput}" Header="Damage Output"/>
-                <DataGridTextColumn Binding="{Binding FirstBlood}" Header="First Blood"/>
+                <DataGridTextColumn Binding="{Binding GameDate}" Header="Game Date" MinWidth="35"/>
+                <DataGridTextColumn Binding="{Binding Result}" Header="Result" MinWidth="35"/>
+                <DataGridTextColumn Binding="{Binding Player}" Header="Player" MinWidth="35"/>
+                <DataGridTextColumn Binding="{Binding Champion}" Header="Champion" MinWidth="35"/>
+                <DataGridTextColumn Binding="{Binding Kills}" Header="Kills" MinWidth="35"/>
+                <DataGridTextColumn Binding="{Binding Deaths}" Header="Deaths" MinWidth="35"/>
+                <DataGridTextColumn Binding="{Binding Assists}" Header="Assists" MinWidth="35"/>
+                <DataGridTextColumn Binding="{Binding CS10}" Header="CS@10" MinWidth="35"/>
+                <DataGridTextColumn Binding="{Binding CS20}" Header="CS@20" MinWidth="35"/>
+                <DataGridTextColumn Binding="{Binding CS30}" Header="CS@30" MinWidth="35"/>
+                <DataGridTextColumn Binding="{Binding CS}" Header="CS" MinWidth="35"/>
+                <DataGridTextColumn Binding="{Binding CSDiff10}" Header="CS Diff@10" MinWidth="35"/>
+                <DataGridTextColumn Binding="{Binding CSDiff20}" Header="CS Diff@20" MinWidth="35"/>
+                <DataGridTextColumn Binding="{Binding CSDiff30}" Header="CS Diff@30" MinWidth="35"/>
+                <DataGridTextColumn Binding="{Binding CSDiffEnd}" Header="CS Diff@End" MinWidth="35"/>
+                <DataGridTextColumn Binding="{Binding Gold}" Header="Gold" MinWidth="35"/>
+                <DataGridTextColumn Binding="{Binding Wards10}" Header="Wards@10" MinWidth="35"/>
+                <DataGridTextColumn Binding="{Binding Wards20}" Header="Wards@20" MinWidth="35"/>
+                <DataGridTextColumn Binding="{Binding Wards30}" Header="Wards@30" MinWidth="35"/>
+                <DataGridTextColumn Binding="{Binding Wards}" Header="Wards" MinWidth="35"/>
+                <DataGridTextColumn Binding="{Binding Pinks}" Header="Pinks" MinWidth="35"/>
+                <DataGridTextColumn Binding="{Binding DamageOutput}" Header="Damage Output" MinWidth="35"/>
+                <DataGridTextColumn Binding="{Binding FirstBlood}" Header="First Blood" MinWidth="35"/>
+                <DataGridTextColumn Width="20" Header=""/>
+                <DataGridTextColumn Binding="{Binding FirstDrake}" Header="First Dragon" MinWidth="35"/>
+                <DataGridTextColumn Binding="{Binding Drakes}" Header="Drakes" MinWidth="35"/>
+                <DataGridTextColumn Binding="{Binding DrakesGiven}" Header="Drakes Given" MinWidth="35"/>
+                <DataGridTextColumn Binding="{Binding FirstBaron}" Header="First Baron" MinWidth="35"/>
+                <DataGridTextColumn Binding="{Binding Barons}" Header="Barons" MinWidth="35"/>
+                <DataGridTextColumn Binding="{Binding FirstTurret}" Header="First Tower" MinWidth="35"/>
+                <DataGridTextColumn Binding="{Binding TeamGoldDiff10}" Header="Gold Diff@10" MinWidth="35"/>
+                <DataGridTextColumn Binding="{Binding TeamGoldDiff20}" Header="Gold Diff@20" MinWidth="35"/>
+                <DataGridTextColumn Binding="{Binding TeamGoldDiff30}" Header="Gold Diff@30" MinWidth="35"/>
+                <DataGridTextColumn Binding="{Binding TeamGoldDiffEnd}" Header="Gold Diff@End" MinWidth="35"/>
             </DataGrid.Columns>
             <DataGrid.GroupStyle>
                 <GroupStyle>
@@ -50,18 +71,7 @@
                                                 <!-- <TextBlock Text="{Binding Player}"/> -->
                                                 <StackPanel Name="ghsp" Orientation="Horizontal" VerticalAlignment="Center">
                                                     <DataGridCell  Content="" Width="100" FontWeight="Bold"/>
-                                                    <DataGridCell  Content="" Width="100" FontWeight="Bold" />
                                                     <DataGridCell  Content="{Binding Player}" Width="100" FontWeight="Bold" />
-                                                    <DataGridCell  Content="" Width="100" FontWeight="Bold" />
-                                                    <DataGridCell HorizontalContentAlignment="Right" Content="{Binding Converter={StaticResource myConverter}, ConverterParameter=Kills}" Width="100" FontWeight="Bold"/>
-                                                    <DataGridCell HorizontalContentAlignment="Right" Content="{Binding Converter={StaticResource myConverter}, ConverterParameter=Deaths}" Width="100" FontWeight="Bold"/>
-                                                    <DataGridCell HorizontalContentAlignment="Right" Content="{Binding Converter={StaticResource myConverter}, ConverterParameter=Assists}" Width="100" FontWeight="Bold"/>
-                                                    <DataGridCell  Content="" Width="100" FontWeight="Bold" />
-                                                    <DataGridCell  Content="" Width="100" FontWeight="Bold" />
-                                                    <DataGridCell HorizontalContentAlignment="Right" Content="{Binding Converter={StaticResource myConverter}, ConverterParameter=Wards}" Width="100" FontWeight="Bold"/>
-                                                    <DataGridCell HorizontalContentAlignment="Right" Content="{Binding Converter={StaticResource myConverter}, ConverterParameter=Pinks}" Width="100" FontWeight="Bold"/>
-                                                    <DataGridCell HorizontalContentAlignment="Right" Content="{Binding Converter={StaticResource myConverter}, ConverterParameter=DamageOutput}" Width="100" FontWeight="Bold"/>
-                                                    <DataGridCell  Content="" Width="100" FontWeight="Bold" />
                                                 </StackPanel>
                                             </Expander.Header>
                                             <ItemsPresenter />

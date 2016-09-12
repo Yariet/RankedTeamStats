@@ -13,98 +13,51 @@ namespace WpfApplication1
     {
         #region Properties
         
-        #region Private
+        #region Player
 
-        private string gameDate;
-        private string result;
-        private string player;
-        private string champion;
-        private long kills;
-        private long deaths;
-        private long assists;
-        private long wards;
-        private long pinks;
-        private long cs;
-        private long gold;
-        private long damageOutput;
-        private bool firstBlood;
+        public string GameDate { get; set; }
+        public string Result{ get; set; }
+        public string Player{ get; set; }
+        public string Champion{ get; set; }
+        public long Kills{ get; set; }
+        public long Deaths{ get; set; }
+        public long Assists{ get; set; }
+        public long Wards{ get; set; }
+        public double Wards10{ get; set; }
+        public double Wards20{ get; set; }
+        public double Wards30{ get; set; }
+        public long Pinks{ get; set; }
+        public long CS{ get; set; }
+        public double CS10{ get; set; }
+        public double CS20{ get; set; }
+        public double CS30{ get; set; }
+        public double CSDiff10{ get; set; }
+        public double CSDiff20{ get; set; }
+        public double CSDiff30{ get; set; }
+        public double CSDiffEnd{ get; set; }
+        public long Gold{ get; set; }
+        public long DamageOutput{ get; set; }
+        public bool FirstBlood{ get; set; }
 
         #endregion
 
-        #region Public
+        #region Team
 
-        public string GameDate 
-        {
-            get { return gameDate; }
-            set { gameDate = value; }
-        }
-        public string Result
-        {
-            get { return result; }
-            set { result = value; }
-        }
-        public string Player
-        {
-            get { return player; }
-            set { player = value; }
-        }
-        public string Champion
-        {
-            get { return champion; }
-            set { champion = value; }
-        }
-        public long Kills
-        {
-            get { return kills; }
-            set { kills = value; }
-        }
-        public long Deaths
-        {
-            get { return deaths; }
-            set { deaths = value; }
-        }
-        public long Assists
-        {
-            get { return assists; }
-            set { assists = value; }
-        }
-        public long Wards
-        {
-            get { return wards; }
-            set { wards = value; }
-        }
-        public long Pinks
-        {
-            get { return pinks; }
-            set { pinks = value; }
-        }
-
-        public long CS
-        {
-            get { return cs; }
-            set { cs = value; }
-        }
-
-        public long Gold
-        {
-            get { return gold; }
-            set { gold = value; }
-        }
-
-        public long DamageOutput
-        {
-            get { return damageOutput; }
-            set { damageOutput = value; }
-        }
-
-        public bool FirstBlood
-        {
-            get { return firstBlood; }
-            set { firstBlood = value; }
-        }
+        public bool FirstDrake{ get; set; }
+        public bool FirstBaron{ get; set; }
+        public long Drakes{ get; set; }
+        public long DrakesGiven{ get; set; }
+        public long Barons{ get; set; }
+        public long BaronsGiven{ get; set; }
+        public bool FirstTurret{ get; set; }
+        public double TeamGoldDiff10{ get; set; }
+        public double TeamGoldDiff20{ get; set; }
+        public double TeamGoldDiff30{ get; set; }
+        public double TeamGoldDiffEnd{ get; set; }
 
         #endregion
 
         #endregion
+
     }
 }
