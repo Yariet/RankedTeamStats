@@ -241,9 +241,9 @@ namespace WpfApplication1
                             foreach (var goldPlayer in match.Participants)
                             {
                                 if(goldPlayer.TeamId == match.Teams[team].TeamId)
-                                    teamGold += goldPlayer.Timeline.GoldPerMinDeltas.ZeroToTen;
+                                    teamGold += (goldPlayer.Timeline.GoldPerMinDeltas.ZeroToTen * 10);
                                 else
-                                    teamGold -= goldPlayer.Timeline.GoldPerMinDeltas.ZeroToTen;
+                                    teamGold -= (goldPlayer.Timeline.GoldPerMinDeltas.ZeroToTen * 10);
                             }
                             singleMatch.TeamGoldDiff10 = teamGold;
 
@@ -252,9 +252,9 @@ namespace WpfApplication1
                             foreach (var goldPlayer in match.Participants)
                             {
                                 if (goldPlayer.TeamId == match.Teams[team].TeamId)
-                                    teamGold += goldPlayer.Timeline.GoldPerMinDeltas.TenToTwenty;
+                                    teamGold += (goldPlayer.Timeline.GoldPerMinDeltas.TenToTwenty * 10);
                                 else
-                                    teamGold -= goldPlayer.Timeline.GoldPerMinDeltas.TenToTwenty;
+                                    teamGold -= (goldPlayer.Timeline.GoldPerMinDeltas.TenToTwenty * 10);
                             }
                             singleMatch.TeamGoldDiff20 = teamGold;
 
@@ -263,9 +263,9 @@ namespace WpfApplication1
                             foreach (var goldPlayer in match.Participants)
                             {
                                 if (goldPlayer.TeamId == match.Teams[team].TeamId)
-                                    teamGold += goldPlayer.Timeline.GoldPerMinDeltas.TwentyToThirty;
+                                    teamGold += (goldPlayer.Timeline.GoldPerMinDeltas.TwentyToThirty * 10);
                                 else
-                                    teamGold -= goldPlayer.Timeline.GoldPerMinDeltas.TwentyToThirty;
+                                    teamGold -= (goldPlayer.Timeline.GoldPerMinDeltas.TwentyToThirty * 10);
                             }
                             singleMatch.TeamGoldDiff30 = teamGold;
 
@@ -274,9 +274,9 @@ namespace WpfApplication1
                             foreach (var goldPlayer in match.Participants)
                             {
                                 if (goldPlayer.TeamId == match.Teams[team].TeamId)
-                                    teamGold += goldPlayer.Timeline.GoldPerMinDeltas.ThirtyToEnd;
-                                else                                                 
-                                    teamGold -= goldPlayer.Timeline.GoldPerMinDeltas.ThirtyToEnd;
+                                    teamGold += (goldPlayer.Timeline.GoldPerMinDeltas.ThirtyToEnd * 10);
+                                else
+                                    teamGold -= (goldPlayer.Timeline.GoldPerMinDeltas.ThirtyToEnd * 10);
                             }
                             singleMatch.TeamGoldDiffEnd = teamGold;
 
