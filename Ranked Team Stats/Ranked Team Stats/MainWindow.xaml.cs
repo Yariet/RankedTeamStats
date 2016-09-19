@@ -153,32 +153,16 @@ namespace WpfApplication1
                             singleMatch.Gold = player.Stats.GoldEarned;
 
                             //CS
-                            try{
-                                singleMatch.CS = player.Stats.MinionsKilled;
-                            }
-                            catch
-                            { }
+                            singleMatch.CS = player.Stats.MinionsKilled;
 
                             //CS@10
-                            try{
-                                singleMatch.CS10 = player.Timeline.CreepsPerMinDeltas.ZeroToTen;
-                            }
-                            catch
-                            { }
+                            singleMatch.CS10 = player.Timeline.CreepsPerMinDeltas.ZeroToTen;
 
                             //CS@20
-                            try{
-                                singleMatch.CS20 = player.Timeline.CreepsPerMinDeltas.TenToTwenty;
-                            }
-                            catch
-                            { }
+                            singleMatch.CS20 = player.Timeline.CreepsPerMinDeltas.TenToTwenty;
 
                             //CS@30
-                            try{
-                                singleMatch.CS30 = player.Timeline.CreepsPerMinDeltas.TwentyToThirty;
-                            }
-                            catch
-                            { }
+                            singleMatch.CS30 = player.Timeline.CreepsPerMinDeltas.TwentyToThirty;
 
                             //CSDiff@10
                             try
@@ -187,16 +171,30 @@ namespace WpfApplication1
                             }
                             catch
                             { }
-                            }
 
                             //CSDiff@20
-                            singleMatch.CSDiff20 = player.Timeline.CsDiffPerMinDeltas.TenToTwenty;
+                            try
+                            {
+                                singleMatch.CSDiff20 = player.Timeline.CsDiffPerMinDeltas.TenToTwenty;
+                            }
+                            catch
+                            { }
 
                             //CSDiff@30
-                            singleMatch.CSDiff30 = player.Timeline.CsDiffPerMinDeltas.TwentyToThirty;
+                            try
+                            {
+                                singleMatch.CSDiff30 = player.Timeline.CsDiffPerMinDeltas.TwentyToThirty;
+                            }
+                            catch
+                            { }
 
                             //CSDiff@END
-                            singleMatch.CSDiffEnd = player.Timeline.CsDiffPerMinDeltas.ThirtyToEnd;
+                            try
+                            {
+                                singleMatch.CSDiffEnd = player.Timeline.CsDiffPerMinDeltas.ThirtyToEnd;
+                            }
+                            catch
+                            { }
 
                             //Wards
                             singleMatch.Wards = player.Stats.WardsPlaced;
