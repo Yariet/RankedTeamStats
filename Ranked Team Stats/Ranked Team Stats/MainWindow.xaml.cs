@@ -153,19 +153,41 @@ namespace WpfApplication1
                             singleMatch.Gold = player.Stats.GoldEarned;
 
                             //CS
-                            singleMatch.CS = player.Stats.MinionsKilled;
+                            try{
+                                singleMatch.CS = player.Stats.MinionsKilled;
+                            }
+                            catch
+                            { }
 
                             //CS@10
-                            singleMatch.CS10 = player.Timeline.CreepsPerMinDeltas.ZeroToTen;
+                            try{
+                                singleMatch.CS10 = player.Timeline.CreepsPerMinDeltas.ZeroToTen;
+                            }
+                            catch
+                            { }
 
                             //CS@20
-                            singleMatch.CS20 = player.Timeline.CreepsPerMinDeltas.TenToTwenty;
+                            try{
+                                singleMatch.CS20 = player.Timeline.CreepsPerMinDeltas.TenToTwenty;
+                            }
+                            catch
+                            { }
 
                             //CS@30
-                            singleMatch.CS30 = player.Timeline.CreepsPerMinDeltas.TwentyToThirty;
+                            try{
+                                singleMatch.CS30 = player.Timeline.CreepsPerMinDeltas.TwentyToThirty;
+                            }
+                            catch
+                            { }
 
                             //CSDiff@10
-                            singleMatch.CSDiff10 = player.Timeline.CsDiffPerMinDeltas.ZeroToTen;
+                            try
+                            {
+                                singleMatch.CSDiff10 = player.Timeline.CsDiffPerMinDeltas.ZeroToTen;
+                            }
+                            catch
+                            { }
+                            }
 
                             //CSDiff@20
                             singleMatch.CSDiff20 = player.Timeline.CsDiffPerMinDeltas.TenToTwenty;

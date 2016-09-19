@@ -24,14 +24,14 @@
                 <DataGridTextColumn Binding="{Binding Kills}" Header="Kills" MinWidth="35"/>
                 <DataGridTextColumn Binding="{Binding Deaths}" Header="Deaths" MinWidth="35"/>
                 <DataGridTextColumn Binding="{Binding Assists}" Header="Assists" MinWidth="35"/>
-                <DataGridTextColumn Binding="{Binding CS10}" Header="CS@10" MinWidth="35"/>
-                <DataGridTextColumn Binding="{Binding CS20}" Header="CS@20" MinWidth="35"/>
-                <DataGridTextColumn Binding="{Binding CS30}" Header="CS@30" MinWidth="35"/>
+                <DataGridTextColumn Binding="{Binding CS10}" Header="CS Min@10" MinWidth="35"/>
+                <DataGridTextColumn Binding="{Binding CS20}" Header="CS Min@20" MinWidth="35"/>
+                <DataGridTextColumn Binding="{Binding CS30}" Header="CS Min@30" MinWidth="35"/>
                 <DataGridTextColumn Binding="{Binding CS}" Header="CS" MinWidth="35"/>
-                <DataGridTextColumn Binding="{Binding CSDiff10}" Header="CS Diff@10" MinWidth="35"/>
-                <DataGridTextColumn Binding="{Binding CSDiff20}" Header="CS Diff@20" MinWidth="35"/>
-                <DataGridTextColumn Binding="{Binding CSDiff30}" Header="CS Diff@30" MinWidth="35"/>
-                <DataGridTextColumn Binding="{Binding CSDiffEnd}" Header="CS Diff@End" MinWidth="35"/>
+                <DataGridTextColumn Binding="{Binding CSDiff10}" Header="CS MinDiff@10" MinWidth="35"/>
+                <DataGridTextColumn Binding="{Binding CSDiff20}" Header="CS MinDiff@20" MinWidth="35"/>
+                <DataGridTextColumn Binding="{Binding CSDiff30}" Header="CS MinDiff@30" MinWidth="35"/>
+                <DataGridTextColumn Binding="{Binding CSDiffEnd}" Header="CS MinDiff@End" MinWidth="35"/>
                 <DataGridTextColumn Binding="{Binding Gold}" Header="Gold" MinWidth="35"/>
                 <DataGridTextColumn Binding="{Binding Wards10}" Header="Wards@10" MinWidth="35"/>
                 <DataGridTextColumn Binding="{Binding Wards20}" Header="Wards@20" MinWidth="35"/>
