@@ -109,6 +109,7 @@ namespace WpfApplication1
                         {
                             singleMatch = new AllMatches();
                             int team = 0;
+                            int wardsMin;
                             
                             //Match Date
                             singleMatch.GameDate = match.MatchCreation.ToShortDateString();
@@ -200,28 +201,55 @@ namespace WpfApplication1
                             singleMatch.Wards = player.Stats.WardsPlaced;
 
                             //Wards@10
-                            try
+                            wardsMin = 0;
+                            for (int i = 0; i < match.Timeline.Frames.Count; i++)
                             {
-                                singleMatch.Wards10 = player.Timeline.WardsPerMinDeltas.ZeroToTen;
+                                if (match.Timeline.Frames[i].Timestamp.Minutes <= 10)
+                                {
+                                    if(match.Timeline.Frames[i].Events != null)
+                                        for (int k = 0; k < match.Timeline.Frames[i].Events.Count; k++)
+                                        {
+                                            if (match.Timeline.Frames[i].Events[k].EventType == EventType.WardPlaced)
+                                                if (match.Timeline.Frames[i].Events[k].CreatorId == player.ParticipantId && match.Timeline.Frames[i].Events[k].WardType != WardType.Undefined && match.Timeline.Frames[i].Events[k].WardType != WardType.TeemoMushroom)
+                                                    wardsMin += 1;
+                                        }
+                                }
                             }
-                            catch
-                            { }
+                            singleMatch.Wards10 = wardsMin;
 
                             //Wards@20
-                            try
+                            wardsMin = 0;
+                            for (int i = 0; i < match.Timeline.Frames.Count; i++)
                             {
-                                singleMatch.Wards10 = player.Timeline.WardsPerMinDeltas.TenToTwenty;
+                                if (match.Timeline.Frames[i].Timestamp.Minutes <= 20 && match.Timeline.Frames[i].Timestamp.Minutes > 10)
+                                {
+                                    if (match.Timeline.Frames[i].Events != null)
+                                        for (int k = 0; k < match.Timeline.Frames[i].Events.Count; k++)
+                                        {
+                                            if (match.Timeline.Frames[i].Events[k].EventType == EventType.WardPlaced)
+                                                if (match.Timeline.Frames[i].Events[k].CreatorId == player.ParticipantId && match.Timeline.Frames[i].Events[k].WardType != WardType.Undefined && match.Timeline.Frames[i].Events[k].WardType != WardType.TeemoMushroom)
+                                                    wardsMin += 1;
+                                        }
+                                }
                             }
-                            catch
-                            { }
+                            singleMatch.Wards20 = wardsMin;
 
                             //Wards@30
-                            try
+                            wardsMin = 0;
+                            for (int i = 0; i < match.Timeline.Frames.Count; i++)
                             {
-                                singleMatch.Wards10 = player.Timeline.WardsPerMinDeltas.TwentyToThirty;
+                                if (match.Timeline.Frames[i].Timestamp.Minutes <= 30 && match.Timeline.Frames[i].Timestamp.Minutes > 20)
+                                {
+                                    if (match.Timeline.Frames[i].Events != null)
+                                        for (int k = 0; k < match.Timeline.Frames[i].Events.Count; k++)
+                                        {
+                                            if (match.Timeline.Frames[i].Events[k].EventType == EventType.WardPlaced)
+                                                if (match.Timeline.Frames[i].Events[k].CreatorId == player.ParticipantId && match.Timeline.Frames[i].Events[k].WardType != WardType.Undefined && match.Timeline.Frames[i].Events[k].WardType != WardType.TeemoMushroom)
+                                                    wardsMin += 1;
+                                        }
+                                }
                             }
-                            catch
-                            { }
+                            singleMatch.Wards30 = wardsMin;
 
                             //Pinks
                             singleMatch.Pinks = player.Stats.VisionWardsBoughtInGame;
