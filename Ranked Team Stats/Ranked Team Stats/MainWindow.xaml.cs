@@ -39,7 +39,7 @@ namespace WpfApplication1
         private StaticRiotApi staticApi = StaticRiotApi.GetInstance(ConfigurationManager.AppSettings["ApiKey"]);
         private StatusRiotApi statusApi = StatusRiotApi.GetInstance();
         private Region region = (Region)Enum.Parse(typeof(Region), ConfigurationManager.AppSettings["Region"]);
-        private long summonerId = long.Parse(ConfigurationManager.AppSettings["Summoner1Id"]);
+        private long summonerId = long.Parse(ConfigurationManager.AppSettings["Summoner1Id"]); //Liam has 1 game less
         private List<Queue> queue = new List<Queue>();
         private List<Season> season = new List<Season>();
         private DateTime beginDate = new DateTime(2016, 9, 1);
@@ -75,14 +75,16 @@ namespace WpfApplication1
         #region LeagueMethods
         public void LoadTeamGames()
         {
-            var matchList = api.GetMatchList(region, summonerId, null, queue, season, beginDate, DateTime.Now);
-            for (int i = 0; i < matchList.Matches.Count; i++)
+            var teamsList = api.GetTeams(region, new List<string>() { "TEAM-86b28e70-7150-11e6-97fc-c81f66dd32cd" }); 
+            //var matchList = api.GetMatchList(region, summonerId, null, queue, season, beginDate, DateTime.Now);
+            for (int i = 0; i < teamsList["TEAM-86b28e70-7150-11e6-97fc-c81f66dd32cd"].MatchHistory.Count; i++)
             {
-                matchesDetails.Add(api.GetMatch(region, matchList.Matches[i].MatchID, true));
+                matchesDetails.Add(api.GetMatch(region, teamsList["TEAM-86b28e70-7150-11e6-97fc-c81f66dd32cd"].MatchHistory[i].GameId, true));
                 Thread.Sleep(1000);
                 while (matchesDetails.Last().Teams == null)
                 {
-                    matchesDetails[matchesDetails.IndexOf(matchesDetails.Last())] = api.GetMatch(region, matchList.Matches[i].MatchID, true);
+                    matchesDetails.Remove(matchesDetails.Last());
+                    matchesDetails.Add(api.GetMatch(region, teamsList["TEAM-86b28e70-7150-11e6-97fc-c81f66dd32cd"].MatchHistory[i].GameId, true));
                     Thread.Sleep(1000);
                 }
 
@@ -103,16 +105,17 @@ namespace WpfApplication1
                         match.ParticipantIdentities[z].Player.SummonerId == long.Parse(ConfigurationManager.AppSettings["Summoner2Id"]) ||
                         match.ParticipantIdentities[z].Player.SummonerId == long.Parse(ConfigurationManager.AppSettings["Summoner3Id"]) ||
                         match.ParticipantIdentities[z].Player.SummonerId == long.Parse(ConfigurationManager.AppSettings["Summoner4Id"]) ||
-                        match.ParticipantIdentities[z].Player.SummonerId == long.Parse(ConfigurationManager.AppSettings["Summoner5Id"]))
+                        match.ParticipantIdentities[z].Player.SummonerId == long.Parse(ConfigurationManager.AppSettings["Summoner5Id"]) ||
+                        match.ParticipantIdentities[z].Player.SummonerId == long.Parse(ConfigurationManager.AppSettings["Summoner6Id"]))
                             &&
                         match.ParticipantIdentities[z].ParticipantId == player.ParticipantId)
                         {
                             singleMatch = new AllMatches();
                             int team = 0;
                             int wardsMin;
-                            
+
                             //Match Date
-                            singleMatch.GameDate = match.MatchCreation.ToShortDateString();
+                            singleMatch.GameDate = match.MatchCreation.ToString();
 
                             //Result
                             if (player.TeamId == match.Teams[0].TeamId)
@@ -132,7 +135,7 @@ namespace WpfApplication1
                             {
                                 if (singleParticipantIdentity.ParticipantId == player.ParticipantId)
                                 {
-                                    singleMatch.Player = singleParticipantIdentity.Player.SummonerName;
+                                    singleMatch.Player = singleParticipantIdentity.Player.SummonerName == "Betheljihb" ? "Venquetecuro" : singleParticipantIdentity.Player.SummonerName;
                                     break;
                                 }
                             }

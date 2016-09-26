@@ -15,6 +15,7 @@ namespace WpfApplication1
         
         #region Player
 
+        public long GameId { get; set; }
         public string GameDate { get; set; }
         public string Result{ get; set; }
         public string Player{ get; set; }
