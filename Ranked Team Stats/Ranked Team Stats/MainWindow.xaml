@@ -24,9 +24,9 @@
                 <DataGridTextColumn Binding="{Binding Kills}" Header="Kills" MinWidth="35"/>
                 <DataGridTextColumn Binding="{Binding Deaths}" Header="Deaths" MinWidth="35"/>
                 <DataGridTextColumn Binding="{Binding Assists}" Header="Assists" MinWidth="35"/>
-                <DataGridTextColumn Binding="{Binding CS10}" Header="CS Min@10" MinWidth="35"/>
-                <DataGridTextColumn Binding="{Binding CS20}" Header="CS Min@20" MinWidth="35"/>
-                <DataGridTextColumn Binding="{Binding CS30}" Header="CS Min@30" MinWidth="35"/>
+                <DataGridTextColumn Binding="{Binding CS10}" Header="CS@10" MinWidth="35"/>
+                <DataGridTextColumn Binding="{Binding CS20}" Header="CS@20" MinWidth="35"/>
+                <DataGridTextColumn Binding="{Binding CS30}" Header="CS@30" MinWidth="35"/>
                 <DataGridTextColumn Binding="{Binding CS}" Header="CS" MinWidth="35"/>
                 <DataGridTextColumn Binding="{Binding CSDiff10}" Header="CS MinDiff@10" MinWidth="35"/>
                 <DataGridTextColumn Binding="{Binding CSDiff20}" Header="CS MinDiff@20" MinWidth="35"/>

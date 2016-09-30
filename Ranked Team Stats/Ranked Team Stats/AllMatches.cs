@@ -38,19 +38,19 @@ namespace WpfApplication1
         public double CSDiffEnd{ get; set; }
         public long Gold{ get; set; }
         public long DamageOutput{ get; set; }
-        public bool FirstBlood{ get; set; }
+        public int FirstBlood{ get; set; }
 
         #endregion
 
         #region Team
 
-        public bool FirstDrake{ get; set; }
-        public bool FirstBaron{ get; set; }
+        public int FirstDrake{ get; set; }
+        public int FirstBaron{ get; set; }
         public long Drakes{ get; set; }
         public long DrakesGiven{ get; set; }
         public long Barons{ get; set; }
         public long BaronsGiven{ get; set; }
-        public bool FirstTurret{ get; set; }
+        public int FirstTurret{ get; set; }
         public double TeamGoldDiff10{ get; set; }
         public double TeamGoldDiff20{ get; set; }
         public double TeamGoldDiff30{ get; set; }

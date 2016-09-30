@@ -44,10 +44,8 @@ namespace WpfApplication1
         private List<Season> season = new List<Season>();
         private DateTime beginDate = new DateTime(2016, 9, 1);
         private List<MatchDetail> matchesDetails = new List<MatchDetail>();
-        private List<Label> label = new List<Label>();
         private List<AllMatches> Matches = new List<AllMatches>();
         private AllMatches singleMatch;
-        private MyConverter myConverter = new MyConverter();
 
         DataGrid dghc = null;
         private IEnumerable<StackPanel> collection;
@@ -75,16 +73,16 @@ namespace WpfApplication1
         #region LeagueMethods
         public void LoadTeamGames()
         {
-            var teamsList = api.GetTeams(region, new List<string>() { "TEAM-86b28e70-7150-11e6-97fc-c81f66dd32cd" }); 
-            //var matchList = api.GetMatchList(region, summonerId, null, queue, season, beginDate, DateTime.Now);
-            for (int i = 0; i < teamsList["TEAM-86b28e70-7150-11e6-97fc-c81f66dd32cd"].MatchHistory.Count; i++)
+            //var teamsList = api.GetTeams(region, new List<string>() { "TEAM-86b28e70-7150-11e6-97fc-c81f66dd32cd" }); 
+            var matchList = api.GetMatchList(region, summonerId, null, queue, season, beginDate, DateTime.Now);
+            for (int i = 0; i < matchList.Matches.Count; i++)
             {
-                matchesDetails.Add(api.GetMatch(region, teamsList["TEAM-86b28e70-7150-11e6-97fc-c81f66dd32cd"].MatchHistory[i].GameId, true));
+                matchesDetails.Add(api.GetMatch(region, matchList.Matches[i].MatchID, true));
                 Thread.Sleep(1000);
                 while (matchesDetails.Last().Teams == null)
                 {
                     matchesDetails.Remove(matchesDetails.Last());
-                    matchesDetails.Add(api.GetMatch(region, teamsList["TEAM-86b28e70-7150-11e6-97fc-c81f66dd32cd"].MatchHistory[i].GameId, true));
+                    matchesDetails.Add(api.GetMatch(region, matchList.Matches[i].MatchID, true));
                     Thread.Sleep(1000);
                 }
 
@@ -160,18 +158,19 @@ namespace WpfApplication1
                             singleMatch.CS = player.Stats.MinionsKilled;
 
                             //CS@10
-                            singleMatch.CS10 = player.Timeline.CreepsPerMinDeltas.ZeroToTen;
+                            singleMatch.CS10 = player.Timeline.CreepsPerMinDeltas.ZeroToTen*10;
 
                             //CS@20
-                            singleMatch.CS20 = player.Timeline.CreepsPerMinDeltas.TenToTwenty;
+                            singleMatch.CS20 = player.Timeline.CreepsPerMinDeltas.TenToTwenty*10;
 
                             //CS@30
-                            singleMatch.CS30 = player.Timeline.CreepsPerMinDeltas.TwentyToThirty;
+                            singleMatch.CS30 = player.Timeline.CreepsPerMinDeltas.TwentyToThirty*10;
 
                             //CSDiff@10
                             try
                             {
                                 singleMatch.CSDiff10 = player.Timeline.CsDiffPerMinDeltas.ZeroToTen;
+                                //singleMatch.CSDiff10 = Math.Round(player.Timeline.CsDiffPerMinDeltas.ZeroToTen, 2);
                             }
                             catch
                             { }
@@ -180,6 +179,7 @@ namespace WpfApplication1
                             try
                             {
                                 singleMatch.CSDiff20 = player.Timeline.CsDiffPerMinDeltas.TenToTwenty;
+                                //singleMatch.CSDiff20 = Math.Round(player.Timeline.CsDiffPerMinDeltas.TenToTwenty, 2);
                             }
                             catch
                             { }
@@ -188,6 +188,7 @@ namespace WpfApplication1
                             try
                             {
                                 singleMatch.CSDiff30 = player.Timeline.CsDiffPerMinDeltas.TwentyToThirty;
+                                //singleMatch.CSDiff30 = Math.Round(player.Timeline.CsDiffPerMinDeltas.TwentyToThirty, 2);
                             }
                             catch
                             { }
@@ -196,6 +197,7 @@ namespace WpfApplication1
                             try
                             {
                                 singleMatch.CSDiffEnd = player.Timeline.CsDiffPerMinDeltas.ThirtyToEnd;
+                                //singleMatch.CSDiffEnd = Math.Round(player.Timeline.CsDiffPerMinDeltas.ThirtyToEnd, 2);
                             }
                             catch
                             { }
@@ -261,19 +263,19 @@ namespace WpfApplication1
                             singleMatch.DamageOutput = player.Stats.TotalDamageDealtToChampions;
 
                             //First Blood
-                            singleMatch.FirstBlood = player.Stats.FirstBloodKill;
+                            singleMatch.FirstBlood = Convert.ToInt32(player.Stats.FirstBloodKill);
 
 
                             //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@   TEAM STATS   @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
                             //First Dragon
-                            singleMatch.FirstDrake = match.Teams[team].FirstDragon;
+                            singleMatch.FirstDrake = Convert.ToInt32(match.Teams[team].FirstDragon);
 
                             //First Baron
-                            singleMatch.FirstBaron = match.Teams[team].FirstBaron;
+                            singleMatch.FirstBaron = Convert.ToInt32(match.Teams[team].FirstBaron);
 
                             //First Turret
-                            singleMatch.FirstTurret = match.Teams[team].FirstTower;
+                            singleMatch.FirstTurret = Convert.ToInt32(match.Teams[team].FirstTower);
 
                             //Drakes killed
                             singleMatch.Drakes = match.Teams[team].DragonKills;
